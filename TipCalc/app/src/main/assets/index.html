@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!-- IT WORKS-->
+<html>
+<head>
+  <script>
+       function calcTip(){
+           var bA = parseFloat(document.getElementById("BillA").value);
+           var pplN = parseFloat(document.getElementById("PeopleN").value);
+
+           if(document.getElementById("out").checked){
+             var servQ = .20
+           }
+           else if(document.getElementById("sat").checked){
+             var servQ = .15
+           }
+           else if(document.getElementById("nG").checked){
+             var servQ = .07
+           }
+
+           var sum = (bA*servQ)/pplN;
+           sum = sum.toFixed(2);
+           document.getElementById("finalTip").innerHTML ="Tip amount: $" +   sum;
+           document.getElementById("finalTip").className =                    "blueDashedBackground cGothic";
+          }
+  </script>
+
+  <style>
+    h1 { font-family: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Arial,
+    sans-serif; font-size: 30px; font-style: normal; font-variant: normal; font-weight: 700;
+    line-height: 26.4px;
+    }
+
+    p{ font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif; font-size: 16px;
+    font-style: normal; font-variant: normal; font-weight: 700; line-height: 26.4px;
+    }
+
+    label{ font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif; font-size: 14px;
+    font-style: normal; font-variant: normal; font-weight: 700; line-height: 26.4px;
+    }
+
+    .cGothic{ font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+    font-size: 14px; font-style: normal; font-variant: normal; font-weight: 700;
+    line-height: 26.4px;
+    }
+
+    .bodyB {
+        background-color: teal;
+    }
+    .blueDashedBackground {
+      box-sizing: border-box;
+      width: 150px;
+      border-width: 5px;
+      border-color: navy;
+      border-style: dotted;
+    }
+  </style>
+</head>
+
+<body class=bodyB>
+  <h1 class="blueDashedBackground">Tip Calculator</h1>
+  <div>
+    <p>How much was your bill?</p>
+
+    <input class="cGothic" id="BillA" type="text" placeholder="Price of meal" required>
+
+    <p>How was your service?</p>
+    <form>
+    <label><input id= "out" type="radio" name="service" checked> Outstanding</label>
+    <label><input id= "sat" type="radio" name="service">satisfactory </label>
+    <label><input id= "nG" type="radio" name="service"> Not good</label>
+    </form>
+
+    <p>How many people are sharing the bill?</p>
+  </div>
+  <input class="cGothic" id="PeopleN" type="text" placeholder="Number of people" value="2"required>
+  <p></p>
+  <input class="cGothic" type="button" onclick="calcTip()" value="Calculate!"></input>
+
+  <h2 id="finalTip" class="cGothic">
+  </h2>
+
+</body>
+</html>

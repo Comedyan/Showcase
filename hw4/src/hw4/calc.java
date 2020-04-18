@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 //NOTES
-//MUST HIT AC AFTER EVERY OPERATION FOR NOW
 
 public class calc extends JFrame implements ActionListener{
 	static JFrame f;
@@ -110,72 +109,78 @@ public class calc extends JFrame implements ActionListener{
         
 	}
 	public void actionPerformed(ActionEvent e) {
+		
+		//s equals one action at a time as a string. every button is equivalent to the 
+		//s string value.
 		String s = e.getActionCommand();
+		
 		if ((s.charAt(0) >= '0' && s.charAt(0) <= '9' || s.charAt(0) =='.') ) {
 			if (!s1.contentEquals(""))
 				s2 = s2+s;
-			else
+			
+			else if (fi.getText().contains("=")) {
+				s1=s2="";
+				s0=s;
+			}
+			else if (s2.contentEquals("")){
 				s0 = s0 +s;
 			
+			}
 			fi.setText(s0 +s1 +s2);
 			
+			
+			
 		
-	}
-	else if (s.charAt(0) == 'A' && s.charAt(1) == 'C') {
-		s0=s1=s2="";
-	}
-	else if (s.charAt(0) == '=') {
-		double temp =0;
-		EvaluateExpression program = new EvaluateExpression();
-		ArrayList<String> postfixList = new ArrayList<String>();
-		ArrayList<String> postfixList2 = new ArrayList<String>();
-		 
-		
-		if (s1.contentEquals("+")) {
-			temp = (Double.parseDouble(s0) + Double.parseDouble(s2));
 		}
-		else if (s1.contentEquals("-")) {
-			temp = (Double.parseDouble(s0) - Double.parseDouble(s2)); 
-		}
-		else if (s1.contentEquals("/")) {
-			temp = (Double.parseDouble(s0) / Double.parseDouble(s2));
-		}
-		else if (s1.contentEquals("*")) {
-			temp = (Double.parseDouble(s0) * Double.parseDouble(s2));
-		}
-		else if (s1.contentEquals("^")) {
-			postfixList = program.infix2Postfix(s0+"^"+s2);
-	     	temp = program.evaluatePostfix(postfixList);
-		}
-		else if (s1.contentEquals("+/-"))
-			temp = Double.parseDouble(s0)*-1;
-		else if (s1.contentEquals("@")) {
-			postfixList2 = program.infix2Postfix(s0+"@"+s2);
-     	temp = program.evaluatePostfix(postfixList2);
-		}
-		else if (s1.contentEquals("%")) {
-			temp = Double.parseDouble(s0)/100;
-		}
-		fi.setText(s0 +s1+s2+"="+temp);
-		s0 = Double.toString(temp);
-		s1 = s2 = "";
+		else if (s.charAt(0) == 'A' && s.charAt(1) == 'C') {
+			s0 = s1 = s2 = "";
+		} else if (s.charAt(0) == '=') {
+			double answer = 0;
+
+			// for the advanced math
+			EvaluateExpression program = new EvaluateExpression();
+			ArrayList<String> postfixList = new ArrayList<String>();
+			ArrayList<String> postfixList2 = new ArrayList<String>();
+
+			if (s1.contentEquals("+")) {
+				answer = (Double.parseDouble(s0) + Double.parseDouble(s2));
+			} else if (s1.contentEquals("-")) {
+				answer = (Double.parseDouble(s0) - Double.parseDouble(s2));
+			} else if (s1.contentEquals("/")) {
+				answer = (Double.parseDouble(s0) / Double.parseDouble(s2));
+			} else if (s1.contentEquals("*")) {
+				answer = (Double.parseDouble(s0) * Double.parseDouble(s2));
+			} else if (s1.contentEquals("^")) {
+				postfixList = program.infix2Postfix(s0 + "^" + s2);
+				answer = program.evaluatePostfix(postfixList);
+			} else if (s1.contentEquals("+/-"))
+				answer = Double.parseDouble(s0) * -1;
+			else if (s1.contentEquals("@")) {
+				postfixList2 = program.infix2Postfix(s0 + "@" + s2);
+				answer = program.evaluatePostfix(postfixList2);
+			} else if (s1.contentEquals("%")) {
+				answer = Double.parseDouble(s0) / 100;
+			}
+			fi.setText(s0 + s1 + s2 + "=" + answer);
+			s0 = Double.toString(answer);
+			s1 = s2 = "";
 	}
 	else {
 		if (s1.equals("") || s2.contentEquals(""))
 			s1 = s;
 		else {
-			double temp;
+			double answer;
 			
 			if (s1.equals("+")) 
-                temp = (Double.parseDouble(s0) + Double.parseDouble(s2)); 
+                answer = (Double.parseDouble(s0) + Double.parseDouble(s2)); 
             else if (s1.equals("-")) 
-                temp = (Double.parseDouble(s0) - Double.parseDouble(s2)); 
+                answer = (Double.parseDouble(s0) - Double.parseDouble(s2)); 
             else if (s1.equals("/")) 
-                temp = (Double.parseDouble(s0) / Double.parseDouble(s2)); 
+                answer = (Double.parseDouble(s0) / Double.parseDouble(s2)); 
             else
-                temp = (Double.parseDouble(s0) * Double.parseDouble(s2)); 
+                answer = (Double.parseDouble(s0) * Double.parseDouble(s2)); 
 			
-			s0 = Double.toString(temp);
+			s0 = Double.toString(answer);
 			s1 = s;
 			s2 = "";
 			
@@ -184,4 +189,3 @@ public class calc extends JFrame implements ActionListener{
 	}
 }
 	}
-
